@@ -15,3 +15,35 @@
          return(Vout)
  }
 
+
+# Function to calculate aliasing frequency from sample frequency. If nyquist freqeuncy
+	 # is greater than signal frequency returns "no aliasing", otherwise returns alias 
+         # frequency in Hertz 
+FalSample <- function(F,Fs){
+        SpC <- Fs/F
+        Ny <- Fs/2
+        if(Fs/F > 2){
+                Fa <- NA
+        } else {
+                Fa <- abs(F - (floor(Fs/F)*Fs) )
+        }
+        DFO <- cbind(F,Fs,Ny,Fa)
+        colnames(DFO) <- c("SigFreq","SmplFreq","NyquistFreq","AliasFreq")
+        return(DFO)
+}
+# Function to calculate aliasing frequency from nyquist frequency. If nyquist freqeuncy
+        # is greater than signal frequency returns "no aliasing", otherwise returns alias 
+        # frequency in Hertz
+FalNyq <- function(F,Ny){
+        Fs <- Ny*2
+        SpC <- Fs/F
+        if(Fs/F > 2){
+                Fa <- NA
+        } else {
+                Fa <- abs(F - (floor(Fs/F)*Fs) )
+        }
+        DFO <- cbind(F,Fs,Ny,Fa)
+        colnames(DFO) <- c("SigFreq","SmplFreq","NyquistFreq","AliasFreq")
+        return(DFO)
+}
+
