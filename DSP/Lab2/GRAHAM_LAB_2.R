@@ -4,7 +4,7 @@
 ############		 DSP Lab 2			############
 
 ####################################################################
-
+library(R.matlab)
 
 ###	Q1
 	## Funciton for the signal, taks time (s) and returns amplitude
@@ -56,13 +56,14 @@ print(paste("Nyquist Frequency =", nq4, "Hz and Aliased Frequency ~ 0.2 Hz"))
 	# frequency in Hertz 
 FalSample <- function(F,Fs){
 	SpC <- Fs/F
+	Ny <- Fs/2
 	if(Fs/F > 2){
 		Fa <- NA		
 	} else {
 		Fa <- abs(F - (floor(Fs/F)*Fs) )
 	}
-	DFO <- cbind(F,Fs,Fa)
-	colnames(DFO) <- c("SigFreq","SmplFreq","AliasFreq")
+	DFO <- cbind(F,Fs,Ny,Fa)
+	colnames(DFO) <- c("SigFreq","SmplFreq","NyquistFreq","AliasFreq")
 	return(DFO)
 }
 	# Function to calculate aliasing frequency from nyquist frequency. If nyquist freqeuncy
@@ -70,17 +71,15 @@ FalSample <- function(F,Fs){
 	# frequency in Hertz
 FalNyq <- function(F,Ny){
 	Fs <- Ny*2	
+	SpC <- Fs/F
 	if(Fs/F > 2){
-		return("No Aliasing")
+		Fa <- NA
 	} else {
-	Fal <- abs(F - (floor(Fs/F)*Fs) )
-	print(" ~ ")
-	print(paste("Freq =", F))
-	print(paste("Sample Freq =", Fs))
-	print(paste("Nyquist Freq =", Ny))
-	print(paste("Samples per cycle", (Fs/F)))
-	return(Fal)
+		Fa <- abs(F - (floor(Fs/F)*Fs) )
 	}
+	DFO <- cbind(F,Fs,Ny,Fa)
+	colnames(DFO) <- c("SigFreq","SmplFreq","NyquistFreq","AliasFreq")
+	return(DFO)
 }
 
 # test on sampling frequencies from questions 1 - 4
@@ -93,4 +92,23 @@ FalNyq(1.9,nq1)
 FalNyq(1.9,nq2)
 FalNyq(1.9,nq3)
 FalNyq(1.9,nq4)
+
+
+############		Part 2
+
+###	Q1
+whis <- readMat("~/Downloads/whistle.mat")
+str(whis) 
+whis$Y[1:10]
+whis$Fs[1]
+plot(1:length(whis$Y),whis$Y)
+
+
+
+
+
+
+
+
+
 
