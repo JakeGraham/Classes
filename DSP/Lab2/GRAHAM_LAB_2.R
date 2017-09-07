@@ -5,6 +5,8 @@
 
 ####################################################################
 library(R.matlab)
+library(signal)
+library(tuneR)
 
 ###	Q1
 	## Funciton for the signal, taks time (s) and returns amplitude
@@ -97,18 +99,34 @@ FalNyq(1.9,nq4)
 ############		Part 2
 
 ###	Q1
-whis <- readMat("~/Downloads/whistle.mat")
-str(whis) 
-whis$Y[1:10]
+whis <- readMat("whistle.mat")
+plot(1:length(whis$Y),whis$Y,type = "l")
+y <- whis$Y
+str(whis$Y)
+str(y)
 whis$Fs[1]
-plot(1:length(whis$Y),whis$Y)
+w1 <- Wave(left = y)
+#play(w1, "play")
+plot(w1)
 
+###	Q2
+seq12 <- seq(0, 12, length(whis$Y))
+y12 <-rep(NA, length(seq12))
+for (i in 1:length(whis$Y)){
+	y12[floor(i / 12)] <- whis$Y[i]
+}
+plot(1:length(y12), y12, type = "l")
 
+###	Q3
+yd12 <- decimate(whis$Y,12)
+plot(1:length(yd12), yd12, type = "l")
 
-
-
-
-
-
-
-
+#w1 <- Wave(yd12, samp.rate = whis$Fs[1]/12, bit = 16)
+#play(w1, "play")
+test<-sine(100)
+str(test)
+length(test)
+#play(test, "play")
+plot(test)
+str(test)
+str(w1)
