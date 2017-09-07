@@ -1,7 +1,10 @@
-####################################################################
+############################################################################################
 
-############		Jake Graham			############
-############		 DSP Lab 2			############
+##############				Jake Graham				############
+##############			 	 DSP Lab 2				############
+
+######  Source located at https://github.com/JakeGraham/Classes/tree/master/DSP/Lab2 #######
+###   To reproduce, in terminal "Rscript GRAHAM_LAB_2.R; gnome-open GRAHAM_LAB_2.pdf    ####
 
 ####################################################################
 library(tuneR)
@@ -25,7 +28,7 @@ sf1 <- 1/step1
 nq1 <- sf1/2
 t1 <- seq(step1, 10, step1)
 q1 <- s1(t1)
-plot(t1, q1, type = "l", xlab = "Time (s)", ylab = "Amplitude", main = paste("Nyquist Frequency =", nq1, " Hz") )
+plot(t1, q1, type = "l", xlab = "Time (s)", ylab = "Amplitude", main = paste("Part 1 Q1:   Nyquist Frequency =", nq1, " Hz") )
 system("mv Rplots.pdf GRAHAM_LAB_2.pdf")
 print(paste("Nyquist Frequency =", nq1, " Hz"))
 
@@ -35,7 +38,7 @@ sf2 <- 1/step2
 nq2 <-sf2/2
 t2 <- seq(step2, 10, step2)
 q2 <- s1(t2)
-plot(t2, q2, type = "l", xlab = "Time (s)", ylab = "Amplitude", main = paste("Nyquist Frequency =", nq2, " Hz")) 
+plot(t2, q2, type = "l", xlab = "Time (s)", ylab = "Amplitude", main = paste("Part 1 Q2:   Nyquist Frequency =", nq2, " Hz")) 
 print(paste("Nyquist Frequency =", nq2, "Hz & Sample Frequency = 1.9 Hz"))
 
 ###	Q3
@@ -44,7 +47,7 @@ sf3 <- 1/step3
 nq3 <- sf3/2
 t3 <- seq(step3, 10, step3)
 q3 <- s1(t3)
-plot(t3, q3, type = "l", xlab = "Time (s)", ylab = "Amplitude", main = paste("Nyquist Frequency =", nq3, " Hz"))
+plot(t3, q3, type = "l", xlab = "Time (s)", ylab = "Amplitude", main = paste("Part 1 Q3:   Nyquist Frequency =", nq3, " Hz"))
 print(paste("Nyquist Frequency =", nq3, "Hz"))
 print("Aliased Frequency ~ 0.1 Hz")
 
@@ -54,7 +57,7 @@ sf4 <- 1/step4
 nq4 <- sf4/2
 t4 <- seq(step4, 10, step4)
 q4 <- s1(t4)
-plot(t4, q4, type = "l", xlab = "Time (s)", ylab = "Amplitude", main = paste("Nyquist Frequency =", round(nq4, 4), " Hz"))
+plot(t4, q4, type = "l", xlab = "Time (s)", ylab = "Amplitude", main = paste("Part 1 Q4:   Nyquist Frequency =", round(nq4, 4), " Hz"))
 print(paste("Nyquist Frequency =", round(nq4, 4), "Hz and Aliased Frequency ~ 0.2 Hz"))
 
 ###	Q5
@@ -90,29 +93,24 @@ FalNyq <- function(F,Ny){
 	return(DFO)
 }
 
-plot(NULL, xlim=c(0,10), ylim=c(0,10), yaxt = "n", xaxt = "n", col = "white", xlab = NA, ylab = NA, bty = "n")
-text(5,5,"Alias Frequency = |FreqSig - floor( ( FreqNyq*2 ) / FreqSig) * FreqSig|")
 # test on sampling frequencies from questions 1 - 4
-FalSample(1.9,sf1)
-FalSample(1.9,sf2)
-FalSample(1.9,sf3)
-FalSample(1.9,sf4)
-
 FalNyq(1.9,nq1)
 FalNyq(1.9,nq2)
 FalNyq(1.9,nq3)
 FalNyq(1.9,nq4)
 
+plot(NULL, xlim=c(0,10), ylim=c(0,10), yaxt = "n", xaxt = "n", col = "white", xlab = NA, ylab = NA, bty = "n")
+text(5, 6, "Part 1 Q5:")
+text(5, 5, "Alias Frequency = |FreqSig - floor( ( FreqNyq*2 ) / FreqSig) * FreqSig|")
 
 ############		Part 2
 
 ###	Q1
 whis <- readMat("whistle.mat")
-w1 <- Wave(left = whis$Y)
-plot(w1, main = paste("Nyquist Frequency =", whis$Fs[1], " Hz"))
-mtext("Ampitude", 2, 2.5)
-#play(w1, "play")
-
+w1 <- Wave(left = whis$Y, bit = 32, pcm = FALSE)
+plot(w1, xlab = "Time (s)", main = paste("Part 2 Q1:   Nyquist Frequency =", whis$Fs[1], " Hz"))
+mtext("Amplitude", 2, 2.5)
+play(w1, "play")
 
 ###	Q2
 seq12 <- seq(0, 12, length(whis$Y))
@@ -120,20 +118,25 @@ y12 <-rep(NA, length(seq12))
 for (i in 1:length(whis$Y)){
 	y12[floor(i / 12)] <- whis$Y[i]
 }
-w2 <- Wave(left =  y12, samp.rate = whis$Fs[1] / 12)
-plot(w2, main = paste("Nyquist Frequency =", whis$Fs[1] / 12, " Hz"))
+w2 <- Wave(left =  y12, samp.rate = whis$Fs[1] / 12, bit = 32, pcm = FALSE)
+plot(w2, xlab = "Time (s)", main = paste("Part 2 Q2:   Nyquist Frequency =", whis$Fs[1] / 12, " Hz"))
 mtext("Amplitude", 2, 2.5)
+play(w2, "play")
 
 ###	Q3
 yd12 <- decimate(whis$Y,12)
-w3 <- Wave(left = yd12, samp.rate = whis$Fs[1] / 12)
-plot(w3, main = paste("Nyquist Frequency =", whis$Fs[1] / 12, " Hz"))
+w3 <- Wave(left = yd12, samp.rate = whis$Fs[1] / 12, bit = 32, pcm = FALSE)
+plot(w3, xlab = "Time (s)", main = paste("Part 2 Q3:   Nyquist Frequency =", whis$Fs[1] / 12, " Hz"))
 mtext("Amplitude", 2, 2.5)
-
-#w1 <- Wave(yd12, samp.rate = whis$Fs[1]/12, bit = 16)
-#play(w1, "play")
-#test<-sine(100)
-#play(test, "play")
-
+play(w3, "play")
 
 ###	Q4
+par(mai = c(0,0,0,0))
+plot(NULL, xlim = c(0,10), ylim = c(0,10), yaxt = "n", xaxt = "n", col = "white", xlab = NA, ylab = NA, bty = "n")
+text(5, 7, "Part 2 Q4:")
+text(5, 6.5, "Whistles in 2 & 3 are distorted because they have been down-sampled")
+text(5, 6, "and some of the original signal has been lost.")
+text(5, 5.5, "The distortions are different becuase they were down-sampled in different manners.")
+text(5, 5, "The plot/sound in question 2 is aliased.")
+text(5, 4.5, "The decimate used a low pass filter to prevent aliasing.")
+
