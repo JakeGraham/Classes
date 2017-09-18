@@ -4,7 +4,7 @@
 ##############                           DSP Lab 3                              ############
 
 ######  Source located at https://github.com/JakeGraham/Classes/tree/master/DSP/Lab3 #######
-###   To reproduce, in terminal "Rscript GRAHAM_LAB_3.R; gnome-open GRAHAM_LAB_2.pdf    ####
+###   To reproduce, in terminal "Rscript GRAHAM_LAB_3.R; gnome-open GRAHAM_LAB_3.pdf    ####
  
 ############################################################################################
 
