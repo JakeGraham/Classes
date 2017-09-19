@@ -21,10 +21,10 @@ time <- data$ts[,1]
 
 
 ### Q1
-plot(time, Cd, type = "l", main = "Q1", xlab = "Year", ylab = "CO2 (ppm)")
+plot(time, Cd, type = "l", main = "Q1", xlab = "Year", ylab = "CO2 (ppm)", lwd = 2)
 system("mv Rplots.pdf GRAHAM_LAB_4.pdf")
 C <- runmed(Cd, 3)
-lines(time, C, col = "red")
+lines(time, C, col = "red", lwd = 1.5)
 legend("topleft", c("Raw", "Filtered"), col = c("black", "red"), lwd = 2, bty = "n")
 
 
@@ -32,8 +32,9 @@ legend("topleft", c("Raw", "Filtered"), col = c("black", "red"), lwd = 2, bty = 
 imps <- seq(0, pi, length = 31)
 imp <- sin(imps) / sum(sin(imps))
 op2 <- conv(C, imp)
-plot(time[16:(length(time) - 15)], op2[31:(length(op2) - 30)], type = "l", main = "Q2", xlab = "Year", ylab = "CO2 (ppm)")
-
+plot(time[16:(length(time) - 15)], op2[31:(length(op2) - 30)], type = "l", main = "Q2", xlab = "Year", ylab = "CO2 (ppm)", lwd = 2)
+lines(time, C, col = "red", lwd = 1.5)
+legend("topleft", c("Median Filter", "Convolution"), col = c("red", "black"), bty = "n", lwd = 2)
 
 ### Q3
 i3 <- c(imp[1:15], imp[17:31])
@@ -41,8 +42,9 @@ i3 <- c(-i3[1:15], sum(i3), -i3[16:30])
 op3 <- conv(C, i3)
 length(op3)
 length(time)
-plot(time[16:(length(time) - 15)], op3[31:(length(op3) - 30)], type = "l",  main = "Q3", xlab = "Year", ylab = "CO2 (ppm)")
-
+plot(time[16:(length(time) - 15)], op3[31:(length(op3) - 30)], type = "l",  main = "Q3", xlab = "Year", ylab = "CO2 (ppm)", lwd = 2, ylim = c(-10, 400))
+lines(time, C, col = "red", lwd = 1.5)
+legend("topleft", c("Median Filter", "Convolution"), col = c("red", "black"), bty = "n", lwd = 2)
 
 ### Short Answers
 
