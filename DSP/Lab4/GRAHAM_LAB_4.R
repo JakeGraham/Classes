@@ -43,3 +43,13 @@ length(op3)
 length(time)
 plot(time[16:(length(time) - 15)], op3[31:(length(op3) - 30)], type = "l",  main = "Q3", xlab = "Year", ylab = "CO2 (ppm)")
 
+
+### Short Answers
+
+# Q1
+par(mai=c(.1, .1, .1, .1))
+plot(NULL,col = "white", xaxt = "n", yaxt = "n", ylab = NA, xlab = NA, bty = "n",xlim = c(0,10), ylim = c(0,10))
+text(5, 6, "Q1: The median filter applies a filter that takes the median of the data point's neighbors. No, this is a nonlinear filter. No, you could not recover the signal. The peaks are decreased and the troughs would increase.", cex = .45)
+text(5, 5, "Q2: All the points but the midpoint would be zero, the midpoint would be 1. You would get the original input signal.", cex = .45)
+text(4, 4, "Q3: ", cex = .45)
+
