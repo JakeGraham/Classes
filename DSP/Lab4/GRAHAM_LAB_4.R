@@ -36,6 +36,7 @@ plot(time[16:(length(time) - 15)], op2[31:(length(op2) - 30)], type = "l", main 
 lines(time, C, col = "red", lwd = 1.5)
 legend("topleft", c("Median Filter", "Convolution"), col = c("red", "black"), bty = "n", lwd = 2)
 
+
 ### Q3
 i3 <- c(imp[1:15], imp[17:31])
 i3 <- c(-i3[1:15], sum(i3), -i3[16:30])
@@ -49,9 +50,12 @@ legend("topleft", c("Median Filter", "Convolution"), col = c("red", "black"), bt
 ### Short Answers
 
 # Q1
-par(mai=c(.1, .1, .1, .1))
+par(mai=c(1, 1, 1, 1))
 plot(NULL,col = "white", xaxt = "n", yaxt = "n", ylab = NA, xlab = NA, bty = "n",xlim = c(0,10), ylim = c(0,10))
 text(5, 6, "Q1: The median filter applies a filter that takes the median of the data point's neighbors. No, this is a nonlinear filter.\n No, you could not recover the signal. The peaks are decreased and the troughs would increase.\n \n Q2: All the points but the midpoint would be zero, the midpoint would be 1. You would get the original input signal. \n \n Q3: The second (bottom) filter removes the DC offset", cex = .75)
 
-
-
+par(mfrow = c(2,2))
+plot(1:10)
+plot(sin(1:10))
+plot(cos(1:10))
+plot(rnorm(10,10,1))

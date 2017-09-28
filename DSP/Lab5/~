@@ -1,0 +1,20 @@
+##############				Jake Graham                             ############
+##############                           DSP Lab 5                             ############
+ 
+######  Source located at https://github.com/JakeGraham/Classes/tree/master/DSP/Lab5#######
+###   To reproduce, in terminal "Rscript GRAHAM_LAB_5.R; gnome-open GRAHAM_LAB_5.pdf  ####
+
+############################################################################################
+
+### Q1
+N <- 16
+K <- N/2 + 1
+ff <- as.matrix(seq(0,.5,length = K)*2*pi)
+n <- as.matrix(0:(N-1))
+res <- cos(ff%*%t(n))
+ims <- sin(ff%*%t(n))
+dim(ims)
+ims
+plot(1:length(res[3,]),res[3,])
+plot(ims)
+system("mv Rplots.pdf GRAHAM_LAB_5.pdf")

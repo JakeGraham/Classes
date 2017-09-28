@@ -35,7 +35,7 @@ for (i in 2:length(sig)){
 plot(t2, acc, type = "l", main = "Q2:   Acceleration", xlab = "Time (s)", ylab = expression( paste( "Amplitude (", mu, "m/s"^"2", ")")))
 
 
-### Q3I
+### Q3
 disp <- rep(NA, length(sig))
 cv <- 0
 for (i in 1:length(sig)){
