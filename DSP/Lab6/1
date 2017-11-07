@@ -1,0 +1,57 @@
+##############                          Jake Graham                             ############
+##############                           DSP Lab 6                             ############
+
+######  Source located at https://github.com/JakeGraham/Classes/tree/master/DSP/Lab6#######
+###   To reproduce, in terminal "Rscript GRAHAM_LAB_6.R; gnome-open GRAHAM_LAB_6.pdf  ####
+
+############################################################################################
+### Name etc
+plot(NULL,col = "white", xaxt = "n", yaxt = "n", ylab = NA, xlab = NA, bty = "n",xlim = c(0,10), ylim = c(0,10))
+text(5, 6, "Jake Graham", cex = 2.5)
+text(5, 5, "DSP Lab 6", cex = 2.5)
+
+library(R.matlab)
+
+repmat <- function(X,m,n){
+	mx <- dim(X)[1]
+	nx <- dim(X)[2]
+	a <- matrix(t(matrix(X,mx,nx*n)),mx*m,nx*n, byrow =T)
+	return(a)
+}
+
+dft <- function(x){
+		if (dim(x)[1] < dim(x)[2]){
+			x <- t(x)
+		}
+	
+	K <- length(x)/2 + 1
+	fax <- seq(0,pi,length = K )
+	n <- 0:(length(x)-1)
+print(K)
+print(n)
+print(fax)	
+	cs <- cos(t(n)*fax)
+	ss <- sin(t(n)*fax)
+	
+	res <- cs*repmat(x, 1, K)
+	ims <- ss*repmat(x, 1, K) 
+
+	X <- sum(res) - sum(ims)
+	return(X)
+}
+
+
+### Q1
+q1 <- as.matrix(c(0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0))
+
+
+
+
+### Q2
+q2 <- fft(q1)
+q2
+q2[1]
+
+
+
+
